@@ -21,18 +21,6 @@ public struct PedalChart: Hashable {
         MusicPitch(name: .a, accidental: .flat)
     ]
     
-    var state = [0, 0, 0, 0, 0, 0, 0]
-    var pitches: [MusicPitch] {
-        var allPitches = [MusicPitch]()
-        for i in 0..<state.count {
-            let defaultPitch = PedalChart.defaultPedalPitches[i]
-            let newPitch = MusicPitch(enharmonicIndex: defaultPitch.enharmonicIndex + state[i], name: defaultPitch.name)!
-            allPitches.append(newPitch)
-        }
-        
-        return allPitches
-    }
-    
     /// The full set of combinations that are possible using the pedals of the harp
     static var allPedalCombinations: [PedalChart] {
         var combinations = [PedalChart]()
@@ -62,6 +50,22 @@ public struct PedalChart: Hashable {
         }
         
         return combinations
+    }
+    
+    public init(state: Array<Int>) {
+        self.state = state
+    }
+    
+    public var state = [0, 0, 0, 0, 0, 0, 0]
+    public var pitches: [MusicPitch] {
+        var allPitches = [MusicPitch]()
+        for i in 0..<state.count {
+            let defaultPitch = PedalChart.defaultPedalPitches[i]
+            let newPitch = MusicPitch(enharmonicIndex: defaultPitch.enharmonicIndex + state[i], name: defaultPitch.name)!
+            allPitches.append(newPitch)
+        }
+        
+        return allPitches
     }
 }
 
