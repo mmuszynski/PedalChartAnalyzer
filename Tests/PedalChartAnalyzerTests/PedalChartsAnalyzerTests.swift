@@ -18,10 +18,8 @@ class PedalChartsBrainTests: XCTestCase {
     
     func testScale() throws {
         let scale = try MusicScale(root: MusicPitch(name: .c, accidental: .natural), mode: .major, direction: .up).dropLast()
-        print(scale.map(\.enharmonicIndex))
         let brain = PedalChartAnalyzer()
         let charts = brain.formCharts(from: Array(scale))
-        print(charts)
     }
     
     func testChord() throws {
@@ -29,7 +27,11 @@ class PedalChartsBrainTests: XCTestCase {
         let disallowed = try chord.transposed(by: MusicInterval(direction: .upward, quality: .minor, quantity: .second))
         let otherDisallowed = try chord.transposed(by: MusicInterval(direction: .downward, quality: .minor, quantity: .second))
         let charts = PedalChartAnalyzer().formCharts(from: Array(chord), avoidingPitches: Array(disallowed) + Array(otherDisallowed))
-        print(charts)
+    }
+    
+    func testArrayLiteral() {
+        let chart: PedalChart = [0, 1, 2, 0, 1, 2, 1]
+        XCTAssertEqual(chart.state, [0, 1, 2, 0, 1, 2, 1])
     }
 
 }

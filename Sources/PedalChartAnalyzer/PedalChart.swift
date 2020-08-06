@@ -83,3 +83,11 @@ extension PedalChart: Sequence {
         }
     }
 }
+
+extension PedalChart: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: Int...) {
+        self.state = elements.map { (0...2).contains($0) ? $0 : 0 }
+    }
+    
+    public typealias ArrayLiteralElement = Int
+}
