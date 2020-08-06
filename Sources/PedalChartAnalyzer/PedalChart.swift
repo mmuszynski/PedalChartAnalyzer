@@ -74,7 +74,7 @@ extension PedalChart: Sequence {
         return state.makeIterator()
     }
     
-    subscript(index: Int) -> Int {
+    public subscript(index: Int) -> Int {
         get {
             return state[index]
         }
